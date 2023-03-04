@@ -18,10 +18,15 @@ class FoodSerailizer(serializers.ModelSerializer):
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['name','password','phone','email']
+        fields = ['name','password','phone','email',]
         
     def create(self,validated_data):
-        user = get_user_model().objects.create(email = validated_data['email'])
+        user = get_user_model().objects.create(email = validated_data['email'],name = validated_data['name'],phone = validated_data['phone'])
         user.set_password(validated_data['password'])
         user.save()
         return user
+    
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['name','order_count','phone','email','id']

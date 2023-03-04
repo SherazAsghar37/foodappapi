@@ -36,7 +36,6 @@ class UserManager(BaseUserManager):
         
         user.set_password(password)
         user.save(using = self._db)
-        print("called")
         return user
     def create_superuser(self,email,password,**extra_fileds):
         extra_fileds.setdefault("is_staff",True)
@@ -58,10 +57,10 @@ class CustomUser(AbstractUser):
     username = None
     first_name = None
     last_name = None
+    order_count = models.IntegerField(default=0)
     is_varified = models.BooleanField(default=False)
     email_token = models.CharField(max_length=100,null=True,blank=True)
     forget_passsord = models.CharField(max_length=100,null=True,blank=True)
-    
     last_login_time = models.DateTimeField(null=True,blank=True)
     last_logout_time = models.DateTimeField(null=True,blank=True)
     phone = models.CharField(max_length=20, null=False, blank=False)
